@@ -22,6 +22,7 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
+      
       setResult(data.result);
       setAnimalInput("");
     } catch(error) {

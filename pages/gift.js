@@ -6,32 +6,44 @@ import styles from "./index.module.css";
 export default function Home() {
   const [gender, setGender] = useState("man");
   const [age, setAge] = useState("30");
-  const[priceMin,setPriceMin]=useState('25');
-  const[priceMax,setPriceMax]=useState('100');
-  const[hobbies,setHobbies]=useState('25');
-
-
+  const [priceMin, setPriceMin] = useState("25");
+  const [priceMax, setPriceMax] = useState("100");
+  const [hobbies, setHobbies] = useState("25");
+  const [loading, setLoading] = useState(false);
 
   async function onSubmit(event) {
     event.preventDefault();
+
+    if (loading) {
+      return;
+    }
+
+    setLoading(true);
+
     try {
-      const response = await fetch("/api/generate", {
+      const response = await fetch("/api/generate-gifts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ priceMin, priceMax, gender, age, hobbies }),
       });
 
       const data = await response.json();
       if (response.status !== 200) {
-        throw data.error || new Error(`Request failed with status ${response.status}`);
+        throw (
+          data.error ||
+          new Error(`Request failed with status ${response.status}`)
+        );
       }
 
       setResult(data.result);
-    } catch(error) {
+    } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
