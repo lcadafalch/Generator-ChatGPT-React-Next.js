@@ -108,6 +108,12 @@ export default function Home() {
           />
           <input type="submit" value="Generate gift ideas" />
         </form>
+        {loading && (
+          <div>
+            <h3>Looking for the best gift ideas 🎁 💡</h3>
+            <img src="/dog.pngc" className={styles.loading} />
+          </div>
+        )}
         {/* <div className={styles.result}>{result}</div> */}
       </main>
     </div>
