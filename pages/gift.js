@@ -37,7 +37,7 @@ export default function Home() {
         );
       }
 
-      setResult(data.result);
+      setResult(data.result.replaceAll("\n","<br/>"));
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -115,6 +115,13 @@ export default function Home() {
           </div>
         )}
         {/* <div className={styles.result}>{result}</div> */}
+        {result && (
+        <div
+        className={styles.result}
+        dangerouslySetInnerHTML ={{html:result}}>
+
+        </div>
+        )}
       </main>
     </div>
   );
